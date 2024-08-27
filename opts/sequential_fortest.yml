@@ -1,0 +1,970 @@
+live1_jpeg_test_qf10:
+  note: 2 cards.
+
+  dataset:
+    test:
+      ds_type: ImTestSet
+      ds_type_base: ImTestSet_base
+
+      ds_opts:
+        gt_path: ../databaserelease2_live1/refimgs_jpeg/
+        lq_path: ../databaserelease2_live1/jpeg_qf10/  # FIXME
+        imgformat_gt: '.bmp'
+        imgformat_lq: '.bmp'
+        mean: [0.4785917320171006, 0.4539074400193108, 0.4084077439326025]  # RGB, based on training env
+        std: [0.2723496106124142, 0.26093942917177027, 0.2846553708356263] # RGB
+        dif_lqgt: ~
+        max_num: 233
+        start_idx: 0
+
+        center_crop:
+          if_crop: False
+          opts:
+            h: 512
+            w: 512
+
+        padding:
+          if_pad: False
+          opts:
+            mul: ~
+
+        split:
+          if_split: True
+          opts:
+            size_h: 256 # must be multiple of 2
+            size_w: 256 # must be multiple of 2
+            overlap_h: 16 # must be multiple of 2
+            overlap_w: 16 # must be multiple of 2
+
+
+  algorithm:
+    name: SequentialAlgorithm
+    exp_name: Sequential_live1_jpeg_test  # FIXME
+
+    network:
+      net:
+        nf_in: 3
+        nf_base: 64
+        nlevel_step: [5,5,5,5,5,5]
+        down_method: strideconv_NAF   # strideconv
+        up_method: pixelshuffler_w-conv  # transpose2d
+        nf_out: 3
+        if_cicr: True
+        if_plus: False
+        if_residual: True
+        block_num_enc: [2,2,2,10,10]  #[10,10,10,10,10]
+        block_num_dec: 2
+        window_size: 1   # 7 works better than 8, maybe because jpeg encoding uses 8x8 patches
+        depths_swin: [6,6] 
+        num_heads: [4,4]
+        mlp_ratio: 2 
+        resi_connection: 1conv   # "1conv" | "3conv"
+        init_type: default
+        comp_type: jpeg
+
+    test:
+      if_save_im: True
+      if_return_each: True
+      ckp_load_path: exp/sequential/ckp_3990000.pt  # default: exp/<exp_name>/ckp_3990000.pt
+
+      criterion:
+        PSNR:
+          unit: dB
+          opts: ~
+        SSIM:
+          unit: _
+          opts: ~
+        LPIPS:
+          unit: _
+          opts: ~
+
+
+live1_jpeg_test_qf40:
+  note: 2 cards.
+
+  dataset:
+    test:
+      ds_type: ImTestSet
+      ds_type_base: ImTestSet_base
+
+      ds_opts:
+        gt_path: ../databaserelease2_live1/refimgs_jpeg/
+        lq_path: ../databaserelease2_live1/jpeg_qf40/  # FIXME
+        imgformat_gt: '.bmp'
+        imgformat_lq: '.bmp'
+        mean: [0.4785917320171006, 0.4539074400193108, 0.4084077439326025]  # RGB, based on training env
+        std: [0.2723496106124142, 0.26093942917177027, 0.2846553708356263] # RGB
+        dif_lqgt: ~
+        max_num: 233
+        start_idx: 0
+
+        center_crop:
+          if_crop: False
+          opts:
+            h: 512
+            w: 512
+
+        padding:
+          if_pad: False
+          opts:
+            mul: ~
+
+        split:
+          if_split: True
+          opts:
+            size_h: 256 # must be multiple of 2
+            size_w: 256 # must be multiple of 2
+            overlap_h: 16 # must be multiple of 2
+            overlap_w: 16 # must be multiple of 2
+
+
+  algorithm:
+    name: SequentialAlgorithm
+    exp_name: Sequential_live1_jpeg_test  # FIXME
+
+    network:
+      net:
+        nf_in: 3
+        nf_base: 64
+        nlevel_step: [5,5,5,5,5,5]
+        down_method: strideconv_NAF   # strideconv
+        up_method: pixelshuffler_w-conv  # transpose2d
+        nf_out: 3
+        if_cicr: True
+        if_plus: False
+        if_residual: True
+        block_num_enc: [2,2,2,10,10]  #[10,10,10,10,10]
+        block_num_dec: 2
+        window_size: 1   # 7 works better than 8, maybe because jpeg encoding uses 8x8 patches
+        depths_swin: [6,6] 
+        num_heads: [4,4]
+        mlp_ratio: 2 
+        resi_connection: 1conv   # "1conv" | "3conv"
+        init_type: default
+        comp_type: jpeg
+
+    test:
+      if_save_im: True
+      if_return_each: True
+      ckp_load_path: exp/sequential/ckp_3990000.pt  # default: exp/<exp_name>/ckp_3990000.pt
+
+      criterion:
+        PSNR:
+          unit: dB
+          opts: ~
+        SSIM:
+          unit: _
+          opts: ~
+        LPIPS:
+          unit: _
+          opts: ~
+
+
+live1_jpeg_test_qf70:
+  note: 2 cards.
+
+  dataset:
+    test:
+      ds_type: ImTestSet
+      ds_type_base: ImTestSet_base
+
+      ds_opts:
+        gt_path: ../databaserelease2_live1/refimgs_jpeg/
+        lq_path: ../databaserelease2_live1/jpeg_qf70/  # FIXME
+        imgformat_gt: '.bmp'
+        imgformat_lq: '.bmp'
+        mean: [0.4785917320171006, 0.4539074400193108, 0.4084077439326025]  # RGB, based on training env
+        std: [0.2723496106124142, 0.26093942917177027, 0.2846553708356263] # RGB
+        dif_lqgt: ~
+        max_num: 233
+        start_idx: 0
+
+        center_crop:
+          if_crop: False
+          opts:
+            h: 512
+            w: 512
+
+        padding:
+          if_pad: False
+          opts:
+            mul: ~
+
+        split:
+          if_split: True
+          opts:
+            size_h: 256 # must be multiple of 2
+            size_w: 256 # must be multiple of 2
+            overlap_h: 16 # must be multiple of 2
+            overlap_w: 16 # must be multiple of 2
+
+
+  algorithm:
+    name: SequentialAlgorithm
+    exp_name: Sequential_live1_jpeg_test  # FIXME
+
+    network:
+      net:
+        nf_in: 3
+        nf_base: 64
+        nlevel_step: [5,5,5,5,5,5]
+        down_method: strideconv_NAF   # strideconv
+        up_method: pixelshuffler_w-conv  # transpose2d
+        nf_out: 3
+        if_cicr: True
+        if_plus: False
+        if_residual: True
+        block_num_enc: [2,2,2,10,10]  #[10,10,10,10,10]
+        block_num_dec: 2
+        window_size: 1   # 7 works better than 8, maybe because jpeg encoding uses 8x8 patches
+        depths_swin: [6,6] 
+        num_heads: [4,4]
+        mlp_ratio: 2 
+        resi_connection: 1conv   # "1conv" | "3conv"
+        init_type: default
+        comp_type: jpeg
+
+    test:
+      if_save_im: True
+      if_return_each: True
+      ckp_load_path: exp/sequential/ckp_3990000.pt  # default: exp/<exp_name>/ckp_3990000.pt
+
+      criterion:
+        PSNR:
+          unit: dB
+          opts: ~
+        SSIM:
+          unit: _
+          opts: ~
+        LPIPS:
+          unit: _
+          opts: ~
+
+
+live1_jpeg_test_qf90:
+  note: 2 cards.
+
+  dataset:
+    test:
+      ds_type: ImTestSet
+      ds_type_base: ImTestSet_base
+
+      ds_opts:
+        gt_path: ../databaserelease2_live1/refimgs_jpeg/
+        lq_path: ../databaserelease2_live1/jpeg_qf90/  # FIXME
+        imgformat_gt: '.bmp'
+        imgformat_lq: '.bmp'
+        mean: [0.4785917320171006, 0.4539074400193108, 0.4084077439326025]  # RGB, based on training env
+        std: [0.2723496106124142, 0.26093942917177027, 0.2846553708356263] # RGB
+        dif_lqgt: ~
+        max_num: 233
+        start_idx: 0
+
+        center_crop:
+          if_crop: False
+          opts:
+            h: 512
+            w: 512
+
+        padding:
+          if_pad: False
+          opts:
+            mul: ~
+
+        split:
+          if_split: True
+          opts:
+            size_h: 256 # must be multiple of 2
+            size_w: 256 # must be multiple of 2
+            overlap_h: 16 # must be multiple of 2
+            overlap_w: 16 # must be multiple of 2
+
+
+  algorithm:
+    name: SequentialAlgorithm
+    exp_name: Sequential_live1_jpeg_test  # FIXME
+
+    network:
+      net:
+        nf_in: 3
+        nf_base: 64
+        nlevel_step: [5,5,5,5,5,5]
+        down_method: strideconv_NAF   # strideconv
+        up_method: pixelshuffler_w-conv  # transpose2d
+        nf_out: 3
+        if_cicr: True
+        if_plus: False
+        if_residual: True
+        block_num_enc: [2,2,2,10,10]  #[10,10,10,10,10]
+        block_num_dec: 2
+        window_size: 1   # 7 works better than 8, maybe because jpeg encoding uses 8x8 patches
+        depths_swin: [6,6] 
+        num_heads: [4,4]
+        mlp_ratio: 2 
+        resi_connection: 1conv   # "1conv" | "3conv"
+        init_type: default
+        comp_type: jpeg
+
+    test:
+      if_save_im: True
+      if_return_each: True
+      ckp_load_path: exp/sequential/ckp_3990000.pt  # default: exp/<exp_name>/ckp_3990000.pt
+
+      criterion:
+        PSNR:
+          unit: dB
+          opts: ~
+        SSIM:
+          unit: _
+          opts: ~
+        LPIPS:
+          unit: _
+          opts: ~
+
+
+BSDS_jpeg_test_qf10:
+  note: 2 cards.
+
+  dataset:
+    test:
+      ds_type: ImTestSet
+      ds_type_base: ImTestSet_base
+
+      ds_opts:
+        gt_path: ../BSDS500/test/images/
+        lq_path: ../BSDS500/test/jpeg_qf10/  # FIXME
+        imgformat_gt: '.jpg'
+        imgformat_lq: '.jpg'
+        mean: [0.4785917320171006, 0.4539074400193108, 0.4084077439326025]  # RGB, based on training env
+        std: [0.2723496106124142, 0.26093942917177027, 0.2846553708356263] # RGB
+        dif_lqgt: ~
+        max_num: 233
+        start_idx: 0
+
+        center_crop:
+          if_crop: False
+          opts:
+            h: 512
+            w: 512
+
+        padding:
+          if_pad: False
+          opts:
+            mul: ~
+
+        split:
+          if_split: True
+          opts:
+            size_h: 256 # must be multiple of 2
+            size_w: 256 # must be multiple of 2
+            overlap_h: 16 # must be multiple of 2
+            overlap_w: 16 # must be multiple of 2
+
+
+  algorithm:
+    name: SequentialAlgorithm
+    exp_name: Sequential_BSDS_jpeg_test  # FIXME
+
+    network:
+      net:
+        nf_in: 3
+        nf_base: 64
+        nlevel_step: [5,5,5,5,5,5]
+        down_method: strideconv_NAF   # strideconv
+        up_method: pixelshuffler_w-conv  # transpose2d
+        nf_out: 3
+        if_cicr: True
+        if_plus: False
+        if_residual: True
+        block_num_enc: [2,2,2,10,10]  #[10,10,10,10,10]
+        block_num_dec: 2
+        window_size: 1   # 7 works better than 8, maybe because jpeg encoding uses 8x8 patches
+        depths_swin: [6,6] 
+        num_heads: [4,4]
+        mlp_ratio: 2 
+        resi_connection: 1conv   # "1conv" | "3conv"
+        init_type: default
+        comp_type: jpeg
+
+    test:
+      if_save_im: True
+      if_return_each: True
+      ckp_load_path: exp/sequential/ckp_3990000.pt  # default: exp/<exp_name>/ckp_3990000.pt
+
+      criterion:
+        PSNR:
+          unit: dB
+          opts: ~
+        SSIM:
+          unit: _
+          opts: ~
+        LPIPS:
+          unit: _
+          opts: ~
+
+
+BSDS_jpeg_test_qf40:
+  note: 2 cards.
+
+  dataset:
+    test:
+      ds_type: ImTestSet
+      ds_type_base: ImTestSet_base
+
+      ds_opts:
+        gt_path: ../BSDS500/test/images/
+        lq_path: ../BSDS500/test/jpeg_qf40/  # FIXME
+        imgformat_gt: '.jpg'
+        imgformat_lq: '.jpg'
+        mean: [0.4785917320171006, 0.4539074400193108, 0.4084077439326025]  # RGB, based on training env
+        std: [0.2723496106124142, 0.26093942917177027, 0.2846553708356263] # RGB
+        dif_lqgt: ~
+        max_num: 233
+        start_idx: 0
+
+        center_crop:
+          if_crop: False
+          opts:
+            h: 512
+            w: 512
+
+        padding:
+          if_pad: False
+          opts:
+            mul: ~
+
+        split:
+          if_split: 
+          opts:
+            size_h: 256 # must be multiple of 2
+            size_w: 256 # must be multiple of 2
+            overlap_h: 16 # must be multiple of 2
+            overlap_w: 16 # must be multiple of 2
+
+
+  algorithm:
+    name: SequentialAlgorithm
+    exp_name: Sequential_BSDS_jpeg_test  # FIXME
+
+    network:
+      net:
+        nf_in: 3
+        nf_base: 64
+        nlevel_step: [5,5,5,5,5,5]
+        down_method: strideconv_NAF   # strideconv
+        up_method: pixelshuffler_w-conv  # transpose2d
+        nf_out: 3
+        if_cicr: True
+        if_plus: False
+        if_residual: True
+        block_num_enc: [2,2,2,10,10]  #[10,10,10,10,10]
+        block_num_dec: 2
+        window_size: 1   # 7 works better than 8, maybe because jpeg encoding uses 8x8 patches
+        depths_swin: [6,6] 
+        num_heads: [4,4]
+        mlp_ratio: 2 
+        resi_connection: 1conv   # "1conv" | "3conv"
+        init_type: default
+        comp_type: jpeg
+
+    test:
+      if_save_im: True
+      if_return_each: True
+      ckp_load_path: exp/sequential/ckp_3990000.pt  # default: exp/<exp_name>/ckp_3990000.pt
+
+      criterion:
+        PSNR:
+          unit: dB
+          opts: ~
+        SSIM:
+          unit: _
+          opts: ~
+        LPIPS:
+          unit: _
+          opts: ~
+
+
+BSDS_jpeg_test_qf70:
+  note: 2 cards.
+
+  dataset:
+    test:
+      ds_type: ImTestSet
+      ds_type_base: ImTestSet_base
+
+      ds_opts:
+        gt_path: ../BSDS500/test/images/
+        lq_path: ../BSDS500/test/jpeg_qf70/  # FIXME
+        imgformat_gt: '.jpg'
+        imgformat_lq: '.jpg'
+        mean: [0.4785917320171006, 0.4539074400193108, 0.4084077439326025]  # RGB, based on training env
+        std: [0.2723496106124142, 0.26093942917177027, 0.2846553708356263] # RGB
+        dif_lqgt: ~
+        max_num: 233
+        start_idx: 0
+
+        center_crop:
+          if_crop: False
+          opts:
+            h: 512
+            w: 512
+
+        padding:
+          if_pad: False
+          opts:
+            mul: ~
+
+        split:
+          if_split: True
+          opts:
+            size_h: 256 # must be multiple of 2
+            size_w: 256 # must be multiple of 2
+            overlap_h: 16 # must be multiple of 2
+            overlap_w: 16 # must be multiple of 2
+
+
+  algorithm:
+    name: SequentialAlgorithm
+    exp_name: Sequential_BSDS_jpeg_test  # FIXME
+
+    network:
+      net:
+        nf_in: 3
+        nf_base: 64
+        nlevel_step: [5,5,5,5,5,5]
+        down_method: strideconv_NAF   # strideconv
+        up_method: pixelshuffler_w-conv  # transpose2d
+        nf_out: 3
+        if_cicr: True
+        if_plus: False
+        if_residual: True
+        block_num_enc: [2,2,2,10,10]  #[10,10,10,10,10]
+        block_num_dec: 2
+        window_size: 1   # 7 works better than 8, maybe because jpeg encoding uses 8x8 patches
+        depths_swin: [6,6] 
+        num_heads: [4,4]
+        mlp_ratio: 2 
+        resi_connection: 1conv   # "1conv" | "3conv"
+        init_type: default
+        comp_type: jpeg
+
+    test:
+      if_save_im: True
+      if_return_each: True
+      ckp_load_path: exp/sequential/ckp_3990000.pt  # default: exp/<exp_name>/ckp_3990000.pt
+
+      criterion:
+        PSNR:
+          unit: dB
+          opts: ~
+        SSIM:
+          unit: _
+          opts: ~
+        LPIPS:
+          unit: _
+          opts: ~
+
+
+BSDS_jpeg_test_qf90:
+  note: 2 cards.
+
+  dataset:
+    test:
+      ds_type: ImTestSet
+      ds_type_base: ImTestSet_base
+
+      ds_opts:
+        gt_path: ../BSDS500/test/images/
+        lq_path: ../BSDS500/test/jpeg_qf90/  # FIXME
+        imgformat_gt: '.jpg'
+        imgformat_lq: '.jpg'
+        mean: [0.4785917320171006, 0.4539074400193108, 0.4084077439326025]  # RGB, based on training env
+        std: [0.2723496106124142, 0.26093942917177027, 0.2846553708356263] # RGB
+        dif_lqgt: ~
+        max_num: 233
+        start_idx: 0
+
+        center_crop:
+          if_crop: False
+          opts:
+            h: 512
+            w: 512
+
+        padding:
+          if_pad: False
+          opts:
+            mul: ~
+
+        split:
+          if_split: True
+          opts:
+            size_h: 256 # must be multiple of 2
+            size_w: 256 # must be multiple of 2
+            overlap_h: 16 # must be multiple of 2
+            overlap_w: 16 # must be multiple of 2
+
+
+  algorithm:
+    name: SequentialAlgorithm
+    exp_name: Sequential_BSDS_jpeg_test  # FIXME
+
+    network:
+      net:
+        nf_in: 3
+        nf_base: 64
+        nlevel_step: [5,5,5,5,5,5]
+        down_method: strideconv_NAF   # strideconv
+        up_method: pixelshuffler_w-conv  # transpose2d
+        nf_out: 3
+        if_cicr: True
+        if_plus: False
+        if_residual: True
+        block_num_enc: [2,2,2,10,10]  #[10,10,10,10,10]
+        block_num_dec: 2
+        window_size: 1   # 7 works better than 8, maybe because jpeg encoding uses 8x8 patches
+        depths_swin: [6,6] 
+        num_heads: [4,4]
+        mlp_ratio: 2 
+        resi_connection: 1conv   # "1conv" | "3conv"
+        init_type: default
+        comp_type: jpeg
+
+    test:
+      if_save_im: True
+      if_return_each: True
+      ckp_load_path: exp/sequential/ckp_3990000.pt  # default: exp/<exp_name>/ckp_3990000.pt
+
+      criterion:
+        PSNR:
+          unit: dB
+          opts: ~
+        SSIM:
+          unit: _
+          opts: ~
+        LPIPS:
+          unit: _
+          opts: ~
+
+
+Urban_jpeg_test_qf10:
+  note: 2 cards.
+
+  dataset:
+    test:
+      ds_type: ImTestSet
+      ds_type_base: ImTestSet_base
+
+      ds_opts:
+        gt_path: ../Urban100/img4_raw/
+        lq_path: ../Urban100/jpeg4_qf10/  # FIXME
+        imgformat_gt: '.png'
+        imgformat_lq: '.png'
+        mean: [0.4785917320171006, 0.4539074400193108, 0.4084077439326025]  # RGB, based on training env
+        std: [0.2723496106124142, 0.26093942917177027, 0.2846553708356263] # RGB
+        dif_lqgt: ~
+        max_num: 233
+        start_idx: 0
+
+        center_crop:
+          if_crop: False
+          opts:
+            h: 512
+            w: 512
+
+        padding:
+          if_pad: False
+          opts:
+            mul: ~
+
+        split:
+          if_split: True
+          opts:
+            size_h: 256 # must be multiple of 2
+            size_w: 256 # must be multiple of 2
+            overlap_h: 16 # must be multiple of 2
+            overlap_w: 16 # must be multiple of 2
+
+
+  algorithm:
+    name: SequentialAlgorithm
+    exp_name: Sequential_Urban_jpeg_test  # FIXME
+
+    network:
+      net:
+        nf_in: 3
+        nf_base: 64
+        nlevel_step: [5,5,5,5,5,5]
+        down_method: strideconv_NAF   # strideconv
+        up_method: pixelshuffler_w-conv  # transpose2d
+        nf_out: 3
+        if_cicr: True
+        if_plus: False
+        if_residual: True
+        block_num_enc: [2,2,2,10,10]  #[10,10,10,10,10]
+        block_num_dec: 2
+        window_size: 1   # 7 works better than 8, maybe because jpeg encoding uses 8x8 patches
+        depths_swin: [6,6] 
+        num_heads: [4,4]
+        mlp_ratio: 2 
+        resi_connection: 1conv   # "1conv" | "3conv"
+        init_type: default
+        comp_type: jpeg
+
+    test:
+      if_save_im: True
+      if_return_each: True
+      ckp_load_path: exp/sequential/ckp_3990000.pt  # default: exp/<exp_name>/ckp_3990000.pt
+
+      criterion:
+        PSNR:
+          unit: dB
+          opts: ~
+        SSIM:
+          unit: _
+          opts: ~
+        LPIPS:
+          unit: _
+          opts: ~
+
+
+Urban_jpeg_test_qf40:
+  note: 2 cards.
+
+  dataset:
+    test:
+      ds_type: ImTestSet
+      ds_type_base: ImTestSet_base
+
+      ds_opts:
+        gt_path: ../Urban100/img4_raw/
+        lq_path: ../Urban100/jpeg4_qf40/  # FIXME
+        imgformat_gt: '.png'
+        imgformat_lq: '.png'
+        mean: [0.4785917320171006, 0.4539074400193108, 0.4084077439326025]  # RGB, based on training env
+        std: [0.2723496106124142, 0.26093942917177027, 0.2846553708356263] # RGB
+        dif_lqgt: ~
+        max_num: 233
+        start_idx: 0
+
+        center_crop:
+          if_crop: False
+          opts:
+            h: 512
+            w: 512
+
+        padding:
+          if_pad: False
+          opts:
+            mul: ~
+
+        split:
+          if_split: True
+          opts:
+            size_h: 256 # must be multiple of 2
+            size_w: 256 # must be multiple of 2
+            overlap_h: 16 # must be multiple of 2
+            overlap_w: 16 # must be multiple of 2
+
+
+  algorithm:
+    name: SequentialAlgorithm
+    exp_name: Sequential_Urban_jpeg_test  # FIXME
+
+    network:
+      net:
+        nf_in: 3
+        nf_base: 64
+        nlevel_step: [5,5,5,5,5,5]
+        down_method: strideconv_NAF   # strideconv
+        up_method: pixelshuffler_w-conv  # transpose2d
+        nf_out: 3
+        if_cicr: True
+        if_plus: False
+        if_residual: True
+        block_num_enc: [2,2,2,10,10]  #[10,10,10,10,10]
+        block_num_dec: 2
+        window_size: 1   # 7 works better than 8, maybe because jpeg encoding uses 8x8 patches
+        depths_swin: [6,6] 
+        num_heads: [4,4]
+        mlp_ratio: 2 
+        resi_connection: 1conv   # "1conv" | "3conv"
+        init_type: default
+        comp_type: jpeg
+
+    test:
+      if_save_im: True
+      if_return_each: True
+      ckp_load_path: exp/sequential/ckp_3990000.pt  # default: exp/<exp_name>/ckp_3990000.pt
+
+      criterion:
+        PSNR:
+          unit: dB
+          opts: ~
+        SSIM:
+          unit: _
+          opts: ~
+        LPIPS:
+          unit: _
+          opts: ~
+
+
+Urban_jpeg_test_qf70:
+  note: 2 cards.
+
+  dataset:
+    test:
+      ds_type: ImTestSet
+      ds_type_base: ImTestSet_base
+
+      ds_opts:
+        gt_path: ../Urban100/img4_raw/
+        lq_path: ../Urban100/jpeg4_qf70/  # FIXME
+        imgformat_gt: '.png'
+        imgformat_lq: '.png'
+        mean: [0.4785917320171006, 0.4539074400193108, 0.4084077439326025]  # RGB, based on training env
+        std: [0.2723496106124142, 0.26093942917177027, 0.2846553708356263] # RGB
+        dif_lqgt: ~
+        max_num: 233
+        start_idx: 0
+
+        center_crop:
+          if_crop: False
+          opts:
+            h: 512
+            w: 512
+
+        padding:
+          if_pad: False
+          opts:
+            mul: ~
+
+        split:
+          if_split: True
+          opts:
+            size_h: 256 # must be multiple of 2
+            size_w: 256 # must be multiple of 2
+            overlap_h: 16 # must be multiple of 2
+            overlap_w: 16 # must be multiple of 2
+
+
+  algorithm:
+    name: SequentialAlgorithm
+    exp_name: Sequential_Urban_jpeg_test  # FIXME
+
+    network:
+      net:
+        nf_in: 3
+        nf_base: 64
+        nlevel_step: [5,5,5,5,5,5]
+        down_method: strideconv_NAF   # strideconv
+        up_method: pixelshuffler_w-conv  # transpose2d
+        nf_out: 3
+        if_cicr: True
+        if_plus: False
+        if_residual: True
+        block_num_enc: [2,2,2,10,10]  #[10,10,10,10,10]
+        block_num_dec: 2
+        window_size: 1   # 7 works better than 8, maybe because jpeg encoding uses 8x8 patches
+        depths_swin: [6,6] 
+        num_heads: [4,4]
+        mlp_ratio: 2 
+        resi_connection: 1conv   # "1conv" | "3conv"
+        init_type: default
+        comp_type: jpeg
+
+    test:
+      if_save_im: True
+      if_return_each: True
+      ckp_load_path: exp/sequential/ckp_3990000.pt  # default: exp/<exp_name>/ckp_3990000.pt
+
+      criterion:
+        PSNR:
+          unit: dB
+          opts: ~
+        SSIM:
+          unit: _
+          opts: ~
+        LPIPS:
+          unit: _
+          opts: ~
+
+
+Urban_jpeg_test_qf90:
+  note: 2 cards.
+
+  dataset:
+    test:
+      ds_type: ImTestSet
+      ds_type_base: ImTestSet_base
+
+      ds_opts:
+        gt_path: ../Urban100/img4_raw/
+        lq_path: ../Urban100/jpeg4_qf90/  # FIXME
+        imgformat_gt: '.png'
+        imgformat_lq: '.png'
+        mean: [0.4785917320171006, 0.4539074400193108, 0.4084077439326025]  # RGB, based on training env
+        std: [0.2723496106124142, 0.26093942917177027, 0.2846553708356263] # RGB
+        dif_lqgt: ~
+        max_num: 233
+        start_idx: 0
+
+        center_crop:
+          if_crop: False
+          opts:
+            h: 512
+            w: 512
+
+        padding:
+          if_pad: False
+          opts:
+            mul: ~
+
+        split:
+          if_split: True
+          opts:
+            size_h: 256 # must be multiple of 2
+            size_w: 256 # must be multiple of 2
+            overlap_h: 16 # must be multiple of 2
+            overlap_w: 16 # must be multiple of 2
+
+
+  algorithm:
+    name: SequentialAlgorithm
+    exp_name: Sequential_Urban_jpeg_test  # FIXME
+
+    network:
+      net:
+        nf_in: 3
+        nf_base: 64
+        nlevel_step: [5,5,5,5,5,5]
+        down_method: strideconv_NAF   # strideconv
+        up_method: pixelshuffler_w-conv  # transpose2d
+        nf_out: 3
+        if_cicr: True
+        if_plus: False
+        if_residual: True
+        block_num_enc: [2,2,2,10,10]  #[10,10,10,10,10]
+        block_num_dec: 2
+        window_size: 1   # 7 works better than 8, maybe because jpeg encoding uses 8x8 patches
+        depths_swin: [6,6] 
+        num_heads: [4,4]
+        mlp_ratio: 2 
+        resi_connection: 1conv   # "1conv" | "3conv"
+        init_type: default
+        comp_type: jpeg
+
+    test:
+      if_save_im: True
+      if_return_each: True
+      ckp_load_path: exp/sequential/ckp_3990000.pt  # default: exp/<exp_name>/ckp_3990000.pt
+
+      criterion:
+        PSNR:
+          unit: dB
+          opts: ~
+        SSIM:
+          unit: _
+          opts: ~
+        LPIPS:
+          unit: _
+          opts: ~

@@ -1,0 +1,150 @@
+synthesized_jpeg:
+  note: 2 cards.
+
+  dataset:
+    train:
+      ds_type: ImTrainingSet
+      ds_type_base: ImTrainingSet_base
+
+      ds_opts:
+        gt_path: ../Dataset_synthesized/train/raw/
+        lq_path: ../Dataset_synthesized/train/jpeg/  # FIXME
+        imgformat_gt: '.png'
+        imgformat_lq: '.png'
+        mean: [0.4785917320171006, 0.4539074400193108, 0.4084077439326025]  # RGB
+        std: [0.2723496106124142, 0.26093942917177027, 0.2846553708356263] # RGB
+        dif_lqgt: _qf
+        max_num: 72362
+        start_idx: 0
+
+        aug:
+          if_aug: True
+          opts:
+            gt_h: 128
+            gt_w: 128
+            if_flip: True
+            if_rot: True
+      
+      enlarge_ratio: 100
+      bs_pg: 8  # batch size per gpu  # FIXME
+      nworker_pg: 8  # FIXME
+
+    val:
+      ds_type: ImTestSet
+      ds_type_base: ImTestSet_base
+
+      ds_opts:
+        gt_path: ../Dataset_synthesized/val/raw/
+        lq_path: ../Dataset_synthesized/val/jpeg/  # FIXME
+        imgformat_gt: '.png'
+        imgformat_lq: '.png'
+        mean: [0.4785917320171006, 0.4539074400193108, 0.4084077439326025]  # RGB
+        std: [0.2723496106124142, 0.26093942917177027, 0.2846553708356263] # RGB
+        dif_lqgt: _qf
+        max_num: 2000  # 8208
+        start_idx: 0
+
+        center_crop:
+          if_crop: False
+          opts:
+            h: 128  # All images are cropped to 512*512 in Synthesized Dataset
+            w: 128
+
+        padding:
+          if_pad: False
+          opts:
+            mul: ~
+
+  algorithm:
+    name: SequentialAlgorithm
+    exp_name: Sequential_synthesized_jpeg  # FIXME
+
+    network:
+      net:
+        nf_in: 3
+        nf_base: 64
+        nlevel_step: [5,5,5,5,5,5]
+        down_method: strideconv_NAF 
+        up_method: pixelshuffler_w-conv  
+        nf_out: 3
+        if_cicr: True
+        if_plus: False
+        if_residual: True
+        block_num_enc: [2,2,2,10,10] 
+        block_num_dec: 2
+        window_size: 1
+        depths_swin: [6,6] 
+        num_heads: [4,4]  # should be diviser of "nf_base"
+        mlp_ratio: 2 
+        resi_connection: 1conv   # "1conv" | "3conv"
+        init_type: default
+        comp_type: jpeg
+
+    train:
+      seed: 7
+      if_cudnn: True  # FIXME
+      if_show_graph: True
+      real_bs_pg: 8  # multiple backwards -> step once  # FIXME
+
+      load_state:
+        if_load: False
+        opts:
+          if_load_optim: True
+          if_keep_dir: True
+          ckp_load_path: 'exp/sequential_synthesized_jpeg/****/ckp_last.pt'  # default: exp/<exp_name>/ckp_last.pt
+
+      if_test_baseline: True
+      inter_print: 1000
+      inter_val: 5000
+
+      niter:
+        if_manually_stop: True  # never stop training  # FIXME
+        name: [run]
+        niter: [!!float 12e+5]  # FIXME
+
+      loss:
+        run:
+          net:
+            CompIELoss:
+              weight: 0.05
+            MSRCLoss:
+              weight: 1.
+              opts:
+                reduction: mean
+            MSFDLoss:
+              weight: 0.005
+              opts:
+                reduction: mean
+
+      optimizer:
+        run:
+          net:
+            name: Adam
+            opts:
+              lr: !!float 1e-4
+              betas: [0.9, 0.999]
+
+      scheduler:
+        if_sched: False
+
+        run:
+          net:
+            name: MultiStepLR
+            opts:
+              milestones: [200000,400000,600000,800000,1000000]  # .step() after each iter, not epoch
+              gamma: 0.5
+
+    val:
+      if_save_im: False
+
+      criterion:
+        PSNR:
+          if_focus: True
+          unit: dB
+          opts: ~
+        SSIM:
+          unit: _
+          opts: ~
+        LPIPS:
+          unit: _
+          opts: ~
